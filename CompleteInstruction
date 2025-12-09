@@ -1,0 +1,79 @@
+****************************************************************************************************
+*  CommonJS modules use require() and module.exports (popular in Node.js),                         *
+*  while ES modules use import and export (the modern JavaScript standard supported by browsers).  *
+
+CJS:
+ // math.js
+module.exports.add = (a, b) => a + b;
+// app.js
+const math = require('./math');
+console.log(math.add(2, 3)); // 5
+
+
+  ESM:
+  // math.js
+export function add(a, b) {
+  return a + b;
+}
+// app.js
+import { add } from './math.js';
+console.log(add(2, 3)); // 5
+
+****************************************************************************************************
+To push to git
+git init
+
+
+
+
+
+
+1 Install npm first by npm install, to verify version npm --v
+2 Install typescript globally by npm install -g typescript, to verify version tsc --v
+3 Set env variables in 3 fiels according to the need
+  3.1 .env.example to .env.development or .env.test
+
+4.Package.json
+  📦 What is package.json?
+      It’s the manifest file for a Node.js project.
+      Contains metadata: project name, version, scripts, dependencies, etc.
+      Required if you want to install packages with npm or yarn.
+  >npm init
+     This starts an interactive wizard asking questions (name, version, description, entry point, etc.).
+     At the end, it generates a package.json.   
+  or
+  > npm init -y
+     Instantly creates a package.json with sensible defaults.
+    
+5.Update package.json with needed scripts and dependencies,(Node Module is getting created now)
+  > npm install  -->to install all dependencies
+  > npm install express -> to install specific node packagae
+  > npm install --save-dev playwright  --> to speifc dev only not require in prod,packahe.json categorzie accordingly
+  > npm install -g typescript --> install globally
+  Note:To uninstall npm uninstall dotenv zod
+
+6.Set up TSConfig file by running command npx tsc --init(In my machine, Some error occured)
+  Hence installed typescript globally -->  npm install -g typescript
+   and called tsc --init
+
+7.Create .eslintrc.cjs
+    It’s the configuration file for ESLint, the tool that checks your code for style and quality issues.
+    The .cjs extension means it’s written as a CommonJS module (using module.exports), instead of JSON or ES Modules.
+
+    ESLint supports multiple config formats:
+    .eslintrc.json → JSON format
+    .eslintrc.js → JavaScript (ESM or CommonJS depending on project)
+    .eslintrc.cjs → Explicitly CommonJS (safe when "type": "module" is set in package.json) WE use it here!!
+
+8.Create prettierrc file:
+    🎨 What is .prettierrc?
+    .prettierrc is a configuration file for Prettier, a code formatter.
+    It tells Prettier how you want your code styled (indentation, quotes, trailing commas, etc.).
+    Instead of passing options every time you run Prettier, you save them in .
+    prettierrc so they apply automatically.
+
+9.Create src/config/types.ts
+   //open the fiel to udnerstand the usage of it
+  
+
+

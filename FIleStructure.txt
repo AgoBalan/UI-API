@@ -1,0 +1,62 @@
+playwright-ts-starter/
+├─ package.json
+├─ tsconfig.json
+├─ .eslintrc.cjs
+├─ .prettierrc
+├─ .env.example
+├─ .env.development
+├─ .env.test
+├─ playwright.config.ts
+├─ README.md
+├─ tests/
+│  ├─ ui/
+│  │  ├─ auth/
+│  │  │  ├─ login.spec.ts
+│  │  │  └─ fixtures.ts
+│  │  ├─ checkout/
+│  │  │  ├─ checkout.spec.ts
+│  │  │  └─ fixtures.ts
+│  │  └─ support/
+│  │     ├─ pages/
+│  │     │  ├─ LoginPage.ts
+│  │     │  ├─ CheckoutPage.ts
+│  │     │  └─ components/
+│  │     │     ├─ CartSummary.ts
+│  │     │     └─ Modal.ts
+│  │     └─ screenplay/
+│  │        ├─ tasks/
+│  │        │  ├─ PlaceOrder.ts
+│  │        │  └─ SignIn.ts
+│  │        ├─ interactions/
+│  │        │  ├─ AddToCart.ts
+│  │        │  └─ ApplyCoupon.ts
+│  │        └─ questions/
+│  │           └─ CartTotal.ts
+│  └─ api/
+│     ├─ auth/
+│     │  ├─ login.contract.spec.ts
+│     │  └─ login.smoke.spec.ts
+│     ├─ orders/
+│     │  ├─ createOrder.spec.ts
+│     │  └─ repository.spec.ts
+│     └─ support/
+│        ├─ clients/
+│        │  ├─ HttpClient.ts
+│        │  ├─ AuthClient.ts
+│        │  └─ OrdersClient.ts
+│        ├─ builders/
+│        │  ├─ OrderBuilder.ts
+│        │  └─ UserBuilder.ts
+│        ├─ data/
+│        │  ├─ factories.ts
+│        │  ├─ objectMother.ts
+│        │  └─ schemas/
+│        │     ├─ login.schema.ts
+│        │     └─ order.schema.ts
+│        ├─ repository/
+│        │  └─ OrdersRepository.ts
+│        └─ fixtures.ts
+└─ src/
+   └─ config/
+      ├─ env.ts
+      └─ types.ts

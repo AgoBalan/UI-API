@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "strict": true,
+    "esModuleInterop": true,
+    "types": ["node"]   // 👈 this line tells TS to include Node globals
+  }
+}
