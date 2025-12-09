@@ -5,6 +5,10 @@
     "moduleResolution": "node16",
     "strict": true,
     "esModuleInterop": true,
-    "types": ["node"]   // 👈 this line tells TS to include Node globals
-  }
+    "types": ["node"],        // include Node.js type definitions
+    "rootDir": "./src",       // where your TypeScript source files live
+    "outDir": "./dist"        // where compiled JavaScript files should go
+  },
+  "include": ["src"],         // compile everything inside src/
+  "exclude": ["node_modules"] // ignore dependencies
 }

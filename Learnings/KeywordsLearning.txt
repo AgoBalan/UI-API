@@ -1,0 +1,34 @@
+📦 Data types vs. Type aliases
+Data types are built-in primitives or structures:
+string, number, boolean, object, null, undefined, etc.
+
+Type aliases are custom names for types:
+type Point = { x: number; y: number };
+Now Point is a reusable type that describes an object with x and y.
+
+*********************************************************************************
+
+export: Makes the declared symbol available to other files. 
+You can import AppEnv elsewhere with import type { AppEnv } from './path.js';.
+
+*********************************************************************************
+
+import { AppEnv } from './types.ts';  --> regular import for runtime
+import type { AppEnv } from './types.ts'; --> this is type import for complitaion time
+
+import 'dotenv/config';
+This is a shortcut import that immediately runs dotenv.config() as soon as the module is loaded.
+
+import dotenv from "dotenv";
+dotenv.config();
+
+This imports the dotenv library as a variable (dotenv).
+You then explicitly call dotenv.config().
+Advantage: you can customize it, e.g.:
+dotenv.config({ path: ".env.production" });
+
+
+*********************************************************************************
+Refer Copmariosn for const let var in pic constLetVarComparison.png
+
+*********************************************************************************
