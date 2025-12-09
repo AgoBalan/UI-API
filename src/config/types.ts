@@ -6,7 +6,7 @@ export type AppEnv = {
   apiToken: string;
 };
 
-/*🧩 Purpose of AppEnv Type
+/*🧩 Purpose of AppEnv Type alias
 In TypeScript, type is used to define the shape of data (like a blueprint).
 Here, AppEnv describes what your application environment configuration should look like.
 It ensures that whenever you use environment-related values (like URLs or tokens), TypeScript can check that:

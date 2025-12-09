@@ -9,7 +9,16 @@ Now Point is a reusable type that describes an object with x and y.
 *********************************************************************************
 
 export: Makes the declared symbol available to other files. 
-You can import AppEnv elsewhere with import type { AppEnv } from './path.js';.
+export type AppEnv = {
+  baseUrl: string; } //Alias name export
+
+export new object based on alias named 
+  export const env: AppEnv = {
+  baseUrl: process.env.BASE_URL ?? 'http://localhost:3000'}
+
+  playwright expects to have default export in palyweright.config file
+  Defult export comes with curly braces
+  export default defineConfig({})
 
 *********************************************************************************
 
@@ -26,6 +35,24 @@ This imports the dotenv library as a variable (dotenv).
 You then explicitly call dotenv.config().
 Advantage: you can customize it, e.g.:
 dotenv.config({ path: ".env.production" });
+
+import { defineConfig, devices } from '@playwright/test';
+
+@playwright/test → The Playwright test runner package.
+defineConfig → A helper function to define your config file with type safety.
+devices → A built-in list of device profiles you can use to emulate browsers on different hardware.
+
+import { test } from '@playwright/test';
+test-> is core runner function
+
+import { expect } from '@playwright/test';
+expect-> assertion library
+
+how to call using import these? Fixtures: page, browser, context (injected).
+1️⃣ Fixtures (page, browser, context)
+These are not imported directly.
+They are injected automatically into your test functions by the Playwright test runner.
+test('homepage has title', async ({ page, browser, context }) => { }
 
 
 *********************************************************************************

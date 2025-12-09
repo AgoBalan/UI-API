@@ -1,2 +1,26 @@
 # UI-API
 Playwright One Repo to handle UI and API test case in Typescript
+
+# Playwright TypeScript Starter
+
+Modern Playwright project with UI and API testing patterns:
+- Enhanced POM + Component Objects
+- Screenplay (Tasks/Interactions/Questions)
+- Typed API Clients, Request Builder
+- Factory/Object Mother/Test Data Builder
+- Repository with retries/idempotency
+- Zod schema-based contract testing
+- Env layering, fixtures, tagging, observability
+
+## Setup
+1. `npm install`
+2. Copy `.env.example` to `.env.development` or `.env.test` and set values.
+3. Run tests:
+   - `npx playwright test` (all)
+   - `npx playwright test tests/ui --grep @smoke`
+   - `npx playwright test tests/api`
+
+## Notes
+- Update `BASE_URL` and `API_BASE_URL` to your app/api.
+- Replace stub data and selectors to match your UI and endpoints.
+

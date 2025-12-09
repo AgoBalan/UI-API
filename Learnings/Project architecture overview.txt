@@ -1,0 +1,166 @@
+Here’s the set of design patterns and structures I’d choose for a modern, TypeScript‑based Playwright project that covers both UI and API testing, aligned with current industry practice.
+
+Modular monorepo structure:
+apps/ for app-specific helpers or demos, tests/ for suites, packages/ for shared libs (e.g., core, ui, api, fixtures).
+Promotes clear boundaries, reuse, and scalable CI pipelines.
+
+Feature‑first organization:
+Group tests and page/API abstractions by domain feature (e.g., auth, checkout, search) rather than layers.
+Aligns code with business flows and minimizes cross‑module coupling.
+
+Testing pyramid with tagging:
+@smoke, @component, @e2e, @contract tags; enforce fast feedback for smoke and component tests, deeper coverage in nightly runs.
+Keeps suites fast and purposeful.
+
+Config as code & environment isolation:
+Strong typed config, .env layering, per‑project overrides in playwright.config.ts.
+Deterministic environments and clean separation for dev/stage/prod.
+
+UI testing design patterns
+Page Object Model (POM), enhanced with Component Objects:
+Page Objects: Encapsulate page‑level actions and intent, not low‑level clicks.
+Component Objects: Reusable models for widgets (e.g., datepicker, table, modal) to reduce duplication across pages.
+
+Screenplay pattern (Tasks/Interactions/Questions) for complex flows:
+Tasks: High‑level user goals (e.g., “place order”).
+Interactions: Atomic actions (e.g., “click add to cart”).
+
+Questions: Read system state (e.g., “cart total”).
+Scales well for multi‑step scenarios and makes intent explicit.
+
+Resilient locator strategy:
+Accessibility‑first selectors: getByRole, getByLabel, testIDs with semantic fallback.
+Stable data attributes: data-testid designed to be UI‑independent.
+Prevents flaky tests and brittle selectors.
+
+Fixture‑driven composition:
+Auth/session fixtures: Pre‑authenticated contexts, role‑based profiles.
+
+Data fixtures: Seeded records tied to test lifecycle using test‑scoped setup/teardown.
+Reduces repeated setup and accelerates runs.
+Robot pattern for micro‑interactions:
+Group frequent atomic actions (fill, select, upload) behind small “robots” to standardize behavior and reduce code noise.
+
+Visual and accessibility checks where valuable:
+Snapshot baselines for critical UI, axe/core integration for accessibility assertions.
+Keeps the focus on essential, stable visuals and inclusive design.
+
+API testing design patterns
+API client abstraction with typed contracts:
+
+Client classes: Per service/domain, encapsulate endpoints.
+DTOs/Types: Generated or curated TypeScript types.
+Ensures compile‑time safety and self‑documenting tests.
+
+Request Builder pattern:
+Chainable builders for complex payloads (e.g., checkout requests, search filters).
+Eliminates ad‑hoc JSON assembly and makes intent clear.
+Factory + Object Mother + Test Data Builder:
+Factory: Create valid minimal entities.
+
+Object Mother: Known canonical defaults for readability.
+Builder: Override fields fluently for edge cases.
+
+Produces consistent, maintainable test data.
+Repository pattern for stateful resources:
+Encapsulate CRUD and lookup logic for domain entities used in tests.
+Centralizes retries, idempotency, and cleanup.
+Contract testing with schema validation:
+Validate responses with JSON Schema or Zod; assert backward compatibility and required fields.
+Flags breaking changes early across environments.
+
+Idempotency and retry strategy:
+Built‑in, bounded retries for transient 5xx/network errors; idempotency keys for write operations when supported.
+Reduces flakiness and race conditions.
+
+Test doubles via network stubbing:
+Playwright route to mock third‑party services or rare edge paths.
+Keeps tests fast and deterministic while isolating external dependencies.
+
+Test data, configuration, and fixtures
+Immutable test data and deterministic seeds:
+
+Pre‑seed known datasets; avoid shared mutable state.
+Use per‑test unique identifiers and teardown hooks.
+Environment‑aware fixtures:
+
+Role fixtures: admin, user, guest with isolated contexts.
+Service fixtures: reusable clients (auth, catalog, payments) with typed interfaces.
+Secrets and config layering:
+
+.env + dotenv + typed config; forbid inline secrets.
+CI injects environment safely; local dev has fallbacks.
+
+Tag‑based orchestration:
+Suites discoverable via tags for smoke/regression/contract; CI gates enforce runtime budgets.
+Reliability, performance, and maintainability
+Auto‑wait discipline and no sleeps:
+
+Lean on Playwright’s auto‑wait and explicit assertions; ban waitForTimeout except documented rare cases.
+
+Observability hooks:
+
+Unified logging, request/response tracing, screenshots, videos on failure; export artifacts to CI.
+
+Faster triage and auditability.
+
+Parallelization with isolation:
+
+Test sharding, per‑worker projects, ephemeral accounts/data to prevent cross‑test interference.
+
+Flaky test management:
+
+Quarantine tag, retries only on known transient failures, and regular deflake sprints.
+
+Keep the suite trustworthy.
+
+Coding standards:
+
+ESLint + Prettier + strict TS.
+
+Central helpers for common assertions and matchers.
+
+
+
+
+Minimal code sketches (illustrative)
+// ui/pages/CheckoutPage.ts
+export class CheckoutPage {
+  constructor(private readonly page: import('@playwright/test').Page) {}
+  async addItem(sku: string) { await this.page.getByTestId(`add-${sku}`).click(); }
+  async placeOrder() { await this.page.getByRole('button', { name: 'Place order' }).click(); }
+  async total() { return this.page.getByTestId('cart-total').textContent(); }
+}
+
+// api/clients/OrdersClient.ts
+export class OrdersClient {
+  constructor(private baseUrl: string, private token: string) {}
+  async create(body: CreateOrderRequest) {
+    const res = await fetch(`${this.baseUrl}/orders`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    return parseJson<CreateOrderResponse>(res);
+  }
+}
+
+// api/builders/OrderBuilder.ts
+export class OrderBuilder {
+  private payload: CreateOrderRequest = { items: [], address: defaultAddress(), payment: defaultPayment() };
+  withItem(sku: string, qty = 1) { this.payload.items.push({ sku, qty }); return this; }
+  withAddress(addr: Address) { this.payload.address = addr; return this; }
+  build() { return this.payload; }
+}
+
+Quick takeaway
+For UI: Enhanced POM + Component Objects, Screenplay for complex flows, resilient locators, fixture‑driven setup.
+
+For API: Typed client abstraction, Request Builder, Factory/Object Mother/Test Data Builder, schema‑based contract tests, repository for state.
+
+Cross‑cutting: Deterministic data, strong fixtures, observability, parallelization, and strict TS/ESLint to keep the suite fast, reliable, and scalable.
+
+
+
+Project scaffold for a complete Playwright TypeScript setup
+Below is a ready-to-import file set you can copy into a new folder, install dependencies, and run both sample UI and API tests. It implements the design patterns I outlined: enhanced Page Objects + Component Objects, Screenplay tasks, fixtures, typed API clients, Request Builder, Factory/Object Mother/Test Data Builder, Repository, schema validation, environment layering, observability, and tagging.
