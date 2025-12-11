@@ -1,6 +1,11 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const LoginResponseSchema = z.object({
-  token: z.string().min(10),
-  userId: z.string().min(1)
+  code: z.number(),              // 0
+  message: z.string(),           // "success"
+  data: z.object({
+    Id: z.number(),              // 17
+    Name: z.string(),            // "ankishRR"
+    Email: z.string().email()    // validate proper email format
+  })
 });

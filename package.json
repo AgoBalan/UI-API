@@ -8,7 +8,8 @@
     "test": "playwright test",
     "test:ui": "playwright test tests/ui",
     "test:smoke": "playwright test tests/ui --grep '@smoke'",
-    "test:api": "playwright test tests/api",
+    "test:api": "playwright test tests/api --grep '@contract'",
+     "test:apiLogin": "playwright test tests/api/auth/login.contract.spec.ts",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts"
   },

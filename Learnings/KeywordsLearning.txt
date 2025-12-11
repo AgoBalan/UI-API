@@ -59,3 +59,88 @@ test('homepage has title', async ({ page, browser, context }) => { }
 Refer Copmariosn for const let var in pic constLetVarComparison.png
 
 *********************************************************************************
+
+Open the login.contract.spec to learn about teh test method/fucntiona nd its varieties
+*
+The basic form
+    test('basic test', async ({ page }) => {
+      await page.goto('https://playwright.dev/');
+    });
+    Here you pass:
+    A title ('basic test')
+    A callback (the actual test code)
+
+With options object-The extended form with metadata:
+    test('basic test', { tag: '@smoke' }, async ({ page }) => {
+      await page.goto('https://playwright.dev/');
+    });
+
+    or
+  
+    test('login contract test', {
+      tag: '@smoke',
+      timeout: 60000,          // override default timeout
+      retries: 2,              // retry twice if flaky
+      skip: process.platform === 'win32', // skip conditionally
+      fail: false,             // mark as expected fail (set true if you expect failure)
+      fixme: false,            // mark as fixme (true disables the test)
+      slow: true,              // mark as slow (extends timeout)
+      annotation: {
+        type: 'issue',
+        description: 'https://github.com/microsoft/playwright/issues/23180',
+      },
+    }, async ({ page }) => {
+      await page.goto('https://playwright.dev/');
+      await expect(page).toHaveTitle(/Playwright/);
+    });
+
+
+
+export import:
+ /* types of export
+  1. Named export (what you’re using)
+      export class UserBuilder {
+    // ...
+    }
+    import like this 
+     import { UserBuilder } from './UserBuilder';
+     Note:You must use curly braces {} because you’re importing a named export.
+
+     You can also alias it:
+     import { UserBuilder as UB } from './UserBuilder';
+
+
+
+The name inside the braces must match exactly (UserBuilder).
+
+  2.Default export
+    export default class UserBuilder {
+     // ...
+    }
+     You import it without curly braces:
+     import UserBuilder from './UserBuilder';
+     NOte:You can name it whatever you want when importing:
+     import MyBuilder from './UserBuilder';
+
+  3.3. Export after declaration
+    class UserBuilder {
+     // ...
+    }
+    export { UserBuilder };
+    import as
+    import { UserBuilder } from './UserBuilder';
+  4. Export multiple things together
+    class UserBuilder {
+    // ...
+    }
+
+    class AnotherClass {
+      // ...
+    }
+
+    export { UserBuilder, AnotherClass };
+
+***********************************************************************
+Class: defines behavior and state, can be instantiated with new.
+
+Type alias: defines a shape of data, cannot be instantiated, only used for type checking.

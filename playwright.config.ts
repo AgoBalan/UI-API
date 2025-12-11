@@ -4,7 +4,7 @@ import { env } from './src/config/env';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  retries: 1,
+  retries: 0,
   workers: '50%',
   reporter: [['html'], ['list']],
   timeout: 30_000,
@@ -16,6 +16,6 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } }
+  //  { name: 'firefox', use: { ...devices['Desktop Firefox'] } }
   ]
 });
