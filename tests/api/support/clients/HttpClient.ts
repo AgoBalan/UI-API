@@ -1,36 +1,26 @@
 import { env } from '../../../../src/config/env';
+import { TokenManager } from './TokenManager';
 
-async function generateToken(): Promise<string> {
-  const res = await fetch('https://dummyjson.com/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      username: 'emilys',
-      password: 'emilyspass'
-    })
-  });
-
-  if (!res.ok) throw new Error(`Failed to generate token: HTTP ${res.status}`);
-  const data = await res.json();
-  console.log("Token:", data.accessToken);
-  return data.accessToken;
-}
+type TokenType = 'user' | 'admin';
 
 export class HttpClient {
-  constructor(private readonly baseUrl = env.apiBaseUrl, private readonly token = env.apiToken) {}
+  constructor(
+              private readonly baseUrl = env.apiBaseUrl,
+              private readonly pathUrl = env.apiPathUrl,
+            ) {} //default constrcutor
+  //if HttpClient obejct  htpClient("adasda"),baseUrl will set to adasda
 
-  async request<T>(path: string, init: RequestInit = { headers: { 'Content-Type': 'application/json' }}): Promise<T> {
-    const url = `${this.baseUrl}${path}`;
-    let authToken = this.token;
-
-    if (!authToken) {
-      console.log("Auth token is empty. Generating a new token...");
-      authToken = await generateToken();
-    }
+  async request<T>(
+    path: string,
+    init: RequestInit = { headers: { 'Content-Type': 'application/json' }},
+    tokenType: TokenType = 'user' // Default to 'user' token
+  ): Promise<T> {
+    const url = `${this.baseUrl}${this.pathUrl}${path}`;
+    const authToken = await TokenManager.getToken(tokenType); // Fetch token based on type
 
     const headers = {
-      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
-      ...(init.headers ?? {})
+      ...(authToken ? { Authorization: `${authToken}` } : {}),
+      ...(init.headers ?? {}),
     };
 
     console.log("Request URL:", url);
@@ -38,14 +28,13 @@ export class HttpClient {
 
     const res = await fetch(url, {
       ...init,
-      headers
+      headers,
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     return (await res.json()) as T;
   }
 }
-
 
 
 /*  async request<T>(path: string, init: RequestInit = {}): Promise<T> {

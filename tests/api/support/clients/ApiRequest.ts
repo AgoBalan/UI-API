@@ -10,15 +10,26 @@ export type LoginResponse = {
     Email: string;       // "thapliyalankiish9258@gmail.com"
   };
 };
-export class AuthClient {
+export class ApiRequest {
  // private → only accessible inside the class.
  //readonly → cannot be reassigned after construction.
   constructor(private readonly http = new HttpClient()) {}
   login(body: LoginRequest) {
+    /*return this.http.request<LoginResponse>('auth/login', {  // generic -> <LoginResponse>
+      method: 'POST',
+      body: JSON.stringify(body)
+    },'admin'); */
     return this.http.request<LoginResponse>('auth/login', {  // generic -> <LoginResponse>
       method: 'POST',
       body: JSON.stringify(body)
-    });
+    },'user');
+  }
+
+  getAllProducts(body: any) {
+    return this.http.request('/product/get-all-products', {  // no generic expected response format
+      method: 'POST',
+      body: JSON.stringify(body)
+    },'user');
   }
 }
 

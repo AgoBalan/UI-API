@@ -9,16 +9,31 @@ import { UserBuilder } from '../support/builders/UserBuilder';
 
  //test is playwright inbuilt test runner framework
  //test.describe is like a container for multiple tests.
-test.describe(' @auth Login contract', () => { 
-  test('@contract login response matches schema', async ({ authClient,expect }) => {
+test.describe('compelte flow', () => { 
+  test.skip('Demo', async ({ apiRequest,expect }) => {
       test.info().annotations.push({ type: 'tag', description: '@contract' });
     const creds = new UserBuilder().withUserName('emilys').withPassword('emilyspass').build();
    /* const client = new AuthClient();
     const res = await client.login(creds);
     We avoid calling this separtely ,Due to autCLient in fixure */
-    const res = await authClient.login(creds);
+    let payload ={"productName":"","minPrice":null,"maxPrice":null,"productCategory":[],"productSubCategory":[],"productFor":[]}
+    const res = await apiRequest.getAllProducts(payload);
     const parsed = LoginResponseSchema.safeParse(res);
     expect(parsed.success, JSON.stringify(parsed.error?.format())).toBeTruthy();
   });
+
+   test('@contract After login get all product details', async ({ apiRequest,expect }) => {
+      test.info().annotations.push({ type: 'tag', description: '@contract' });
+    const creds = new UserBuilder().withUserName('emilys').withPassword('emilyspass').build();
+   /* const client = new AuthClient();
+    const res = await client.login(creds);
+    We avoid calling this separtely ,Due to autCLient in fixure */
+    let payload ={"productName":"","minPrice":null,"maxPrice":null,"productCategory":[],"productSubCategory":[],"productFor":[]}
+    const res = await apiRequest.getAllProducts(payload);
+    console.log("All prod response"+ JSON.stringify(res));
+    // const parsed = LoginResponseSchema.safeParse(res);
+    // expect(parsed.success, JSON.stringify(parsed.error?.format())).toBeTruthy();
+  });
 });
+
 

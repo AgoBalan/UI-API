@@ -1,8 +1,11 @@
 export type AppEnv = {
   baseUrl: string;
   apiBaseUrl: string;
+  apiPathUrl: string;
   adminEmail: string;
   adminPassword: string;
+  userEmail: string;
+  userPassword: string;
   apiToken: string;
 };
 

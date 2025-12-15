@@ -144,3 +144,20 @@ The name inside the braces must match exactly (UserBuilder).
 Class: defines behavior and state, can be instantiated with new.
 
 Type alias: defines a shape of data, cannot be instantiated, only used for type checking.
+
+
+costructor:
+constructor(private readonly baseUrl = env.apiBaseUrl) {} //default constrcutor
+  //if HttpClient obejct  htpClient("adasda"),baseUrl will set to adasda
+
+
+ ### named export of a function
+  export const defaultAddress = () => ({
+  line1: '123 Test St',
+  city: 'Morrisville',
+  state: 'NC',
+  zip: '27560',
+  country: 'US'
+});
+
+= () => ({ ... }) → that constant is a function (arrow function) which, when called, returns the object with line1, city, state, etc.

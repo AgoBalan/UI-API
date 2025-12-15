@@ -1,9 +1,9 @@
 import { test as base, expect } from '@playwright/test'; //Import the test function, but locally refer to it by the name base.
-import { AuthClient } from './clients/AuthClient';
+import { ApiRequest } from './clients/ApiRequest';
 import { OrdersRepository } from './repository/OrdersRepository';
 
 type Fixtures = {         //Declaring shape of the object
-  authClient: AuthClient;
+  apiRequest: ApiRequest;
   ordersRepo: OrdersRepository;
   expect: typeof expect;
 };
@@ -13,7 +13,7 @@ type Fixtures = {         //Declaring shape of the object
 export const test = base.extend<Fixtures>({
   //use is a fucntion given during extending fxture, 
   // It's duty to hand the value you’ve created to Playwright so it can inject it into the test.
-  authClient: async ({}, use) => use(new AuthClient()),   // authClient is a fixture,
+  apiRequest: async ({}, use) => use(new ApiRequest()),   // httpClient is a fixture,
   ordersRepo: async ({}, use) => use(new OrdersRepository()),  // ordersRepo is a fixture
   expect: async ({}, use) => use(expect)  // expect is a fixture
 });
