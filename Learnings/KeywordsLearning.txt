@@ -58,6 +58,480 @@ test('homepage has title', async ({ page, browser, context }) => { }
 *********************************************************************************
 Refer Copmariosn for const let var in pic constLetVarComparison.png
 
+Difference Between var, let and const
+      Scope	Redeclare	Reassign	Hoisted	Binds this
+var 	No	      Yes	      Yes	    Yes   Yes
+let 	Yes     	No	      Yes	    No	  No
+const	Yes	      No      	No    	No	  No
+
+Hosited mean, auto declared to value undefined
+carName = "Volvo";
+var carName;  // later declartion also ok for var, even no declartation also ok for var
+
+What is Good?
+let and const have block scope.
+let and const can not be redeclared.
+let and const must be declared before use.
+let and const does not bind to this.
+let and const are not hoisted.
+
+What is Not Good?
+var does not have to be declared.
+var is hoisted.
+var binds to this.
+
+
+DATA TYPES:
+JavaScript has 8 Datatypes
+A JavaScript variable can hold 8 types of data:
+
+Type	Description
+String	A text of characters enclosed in quotes 
+   let a ="ada"
+Number	A number representing a mathematical value
+ let b = 1
+Bigint	A number representing a large integer
+  let x = 1234567890123456789012345n;
+  let y = BigInt(1234567890123456789012345)
+Boolean	A data type representing true or false
+  let flag = true
+Object	A collection of key-value pairs of data
+  let car = ["a","b"]
+  let dt = new Date("2025-10-10")
+Undefined	A primitive variable with no assigned value
+  let a; let b;
+  //date type is defined by the value, if no value set then data type is undefined and the value is also undefined
+Null	A primitive value representing object absence
+let a = null;
+Symbol	A unique and primitive identifier
+const x = Symbol();
+
+🔹 Converting to Different Types
+To Number
+Number(value) → converts to a number.
+parseInt(value) → converts to an integer.
+parseFloat(value) → converts to a floating‑point number.
+
+To String
+String(value) → converts to a string.
+value.toString() → method available on most objects.
+
+To Boolean
+Boolean(value) → converts to true or false.
+Examples: Boolean(0) → false, Boolean("hello") → true.
+
+Special Checks
+  isNaN(value) → checks if value is Not‑a‑Number.
+  NaN is a number: typeof NaN returns number:
+  Number.isNaN(value) → stricter version (doesn’t coerce types).
+  Number.isInteger(value) → checks if value is an integer.
+  isFinite(value) → checks if value is a finite number.
+
+  Infinity (or -Infinity)
+  let myNumber = 2;
+// Execute until Infinity
+while (myNumber != Infinity) {
+  myNumber = myNumber * myNumber;
+}
+Division by 0 (zero) also generates Infinity:
+
+Basic Methods
+Basic number methods can be used on any number:
+
+toString()
+toExponential()
+toFixed()
+toPrecision()
+valueOf()
+
+Static Methods
+Static methods can only be used on Number:
+
+Number.isFinite()
+Number.isInteger()
+Number.isNan()
+Number.isSafeInteger()
+Number.parseInt()
+Number.parseFloat()
+
+
+
+**********************************************88
+typeof :
+typeof ""             // Returns "string"
+typeof "John"         // Returns "string"
+typeof "John Doe"     // Returns "string"
+
+typeof 0              // Returns "number"
+typeof 314            // Returns "number"
+typeof 3.14           // Returns "number"
+typeof (3)            // Returns "number"
+typeof (3 + 4)        // Returns "number"
+
+instanceof operator → checks if an object is an instance of a particular class.
+
+javascript
+[] instanceof Array; // true
+
+Exponential Notation:
+let y = 123e5;    // 12300000
+let z = 123e-5;   // 0.00123
+
+
+Logical AND assignment operator:
+let x = true;
+let y = x &&= 10;   Ans: y=10
+
+let x = false;
+let y = x ||= 10;   Ans: y=10
+
+let x = true;
+let y = x ||= 10;  Ans: y=true
+
+Nullish coalescing assignment operator:
+If the first value is undefined or null, the second value is assigned.
+let x;
+x ??= 10; Ans : x= 10
+
+The Spread (...) Operator
+The ... operator splits iterables into individual elements.
+let text = "12345";
+Minimum is: 1
+Maximum is: 5
+
+let numbers = [1, 2, 3];
+let copy = [...numbers];
+console.log(copy); // [1, 2, 3]
+
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+let values = [10, 20, 30];
+console.log(sum(...values)); // 60
+
+
+
+comparison:
+let text1 = "A";
+let text2 = "B";
+let result = text1 < text2;
+ Ans Yes , Note that strings are compared alphabetically:
+
+
+ let text1 = "20";
+let text2 = "5";
+let result = text1 < text2;
+
+Ans Yes: "20" vs "5" 
+→ JavaScript compares character by character.
+"2" (the first character of "20") is compared with "5".
+Since "2" comes before "5" in Unicode order, "20" is considered less than "5".
+
+Comparing Different Types:
+ JavaScript will convert the string to a number when doing the comparison. 
+ An empty string converts to 0.
+  A non-numeric string converts to NaN which is always false.
+  2 < 12	true	
+2 < "12"	true	   
+2 < "John"	false
+"2" < "12"	false  , since both are String, it picks first char to compare
+"2" > "12"	true
+
+
+Ternary Operator (? :)
+Use (? :) (ternary) as a shorthand for if...else.
+condition ? expression1 : expression2
+
+
+🔹 Core Built‑in Objects
+let now = new Date();
+ let date = new Date().getDate;
+Math.sqrt(16); // 4
+[1,2,3].map(x => x*2); // [2,4,6]
+regex: /abc/.test("abcdef"); // true
+JSON → parse and stringify JSON data.   JSON.parse('{"x":10}'); // {x:10}
+Map and Set → collections with unique behaviors.  let set = new Set([1,2,2,3]); // {1,2,3}
+new Promise((resolve) => resolve("done"));
+
+
+Strict Comparison
+Switch uses strict comparison (===).
+The values must be of the same type to match.
+A strict comparison can only be true if both operands are of the same type.
+
+let x = "0";
+switch (x) {
+  case 0:
+    text = "Off";
+    break;
+  case 1:
+    text = "On";
+    break;
+  default:
+    text = "No value found";
+}
+ Ans: No match
+
+ Tatcic for loop:
+ const cars = ["BMW", "Volvo", "Saab", "Ford"];
+let i = 0;
+let text = "";
+
+for (;cars[i];) {
+  text += cars[i];
+  i++;
+}
+JavaScript evaluates this expression in a truthy/falsy way:
+
+If cars[i] is a non‑empty string, number other than 0, object, etc. → truthy → loop continues.
+If cars[i] is undefined, null, 0, false, or "" → falsy → loop stops.
+
+🔹 When cars[i] becomes undefined
+Arrays in JavaScript don’t throw an error if you access an out‑of‑range index.
+Instead, they return undefined.
+Since undefined is falsy, the loop condition fails and the loop exits cleanly.
+
+same for while loop:
+while (cars[i]) {
+  text += cars[i] + "<br>";
+  i++;
+}
+
+
+JavaScript Labels:
+let text = "";
+
+loop1: for (let j = 1; j < 5; j++) {
+  loop2: for (let i = 1; i < 5; i++) {
+    if (i === 3) { break loop1; }
+    text += i;
+   }
+}Ans : 1 2 , breaking outter loop just stops approptly
+
+let text = "";
+
+loop1: for (let j = 1; j < 5; j++) {
+  loop2: for (let i = 1; i < 5; i++) {
+    if (i === 3) { break loop2; }
+    text += i;
+   }
+} Ans 1 2 1 2 1 2
+
+const cars = ["BMW", "Volvo", "Saab", "Ford"];
+list: {
+  text += cars[0] + "<br>";
+  text += cars[1] + "<br>";
+  break list;
+  text += cars[2] + "<br>";
+  text += cars[3] + "<br>";
+} Ans: BMW , Volvo
+
+
+lableed continue:
+let text = "";
+
+loop1: for (let j = 1; j < 5; j++) {
+  loop2: for (let i = 1; i < 5; i++) {
+    if (i === 3) { continue loop1; }
+    text += i;
+   }
+} Ans : 1
+2
+1
+2
+1
+2
+1
+2
+
+Template Strings:
+Templates are strings enclosed in backticks (`This is a template string`).
+Templates allow single and double quotes inside a string:
+let text = `He's often called "Johnny"`;
+
+let length = text.length;
+
+String Literals:
+let x = "John";
+
+String as object:
+let y = new String("John");
+Do not create String objects.
+The new keyword complicates the code and slows down execution speed.
+String objects can produce unexpected results:
+
+Interpolation:
+Template strings provide an easy way to interpolate variables in strings.
+let firstName = "John";
+let lastName = "Doe";
+let text = `Welcome ${firstName}, ${lastName}!`;
+
+Expression Substitution:
+let price = 10;
+let VAT = 0.25;
+let total = `Total: ${(price * (1 + VAT)).toFixed(2)}`;
+
+
+String length
+String charAt()
+String charCodeAt()
+String codePointAt()
+String at()
+String [ ]
+String concat()
+
+String toUpperCase()
+String toLowerCase()
+String isWellFormed()
+String toWellFormed()
+String trim()
+String trimStart()
+String trimEnd()
+String padStart()
+String padEnd()
+String repeat()
+String replace()
+String replaceAll()
+String split()
+
+String slice()
+slice(start, end)
+  let text = "Apple, Banana, Kiwi";
+  let part = text.slice(7,13); //Banana
+  let part = text.slice(7); //Banana, Kiwi
+  let part = text.slice(-12); //Banana, Kiwi Extract a part of a string counting from the end:
+
+String substring()
+    let str = "Apple, Banana, Kiwi";
+    str.substring(7,13);  //Banana
+      str.substring(7);  //Banana, Kiwi
+String substr()
+
+substring(start, end)
+substr(start, length)
+
+const name = "W3Schools";
+let letter = name[2]; Ans: S
+const name = "W3Schools";
+let letter = name.at(2);
+Ans: S
+
+Functions:
+Why Functions?
+Functions enable better code organization and efficiency.
+With functions you can reuse code.
+You can write code that can be used many times.
+You can use the same code with different arguments, to produce different results.
+
+// Convert Fahrenheit to Celsius:
+function toCelsius(fahrenheit) {
+  return (5/9) * (fahrenheit-32);
+}
+
+// Call the toCelcius() function
+let value = toCelsius(77); // works
+let value = toCelsius(); // NaN not working
+let value = toCelsius; wuhtout () return the whole function  
+
+Arrao function allows shorter function.
+
+let myfn = fucntion(a,b) { return a+b;};
+let myfn = (a,b)=> a + b;
+// This will not work
+let myFunction = (x, y) => { x * y } ;
+// This will not work
+let myFunction = (x, y) => return x * y ;
+// Only this will work
+let myFunction = (x, y) => { return x * y };
+
+
+PARAMETER VS ARGUMENTS
+"name" and "age" are parameters:
+function greet(name, age) {
+  return `Hello ${name}! You are ${age} years old.`;
+}
+
+"John" and 21 are arguments:
+greet("John", 21);
+
+Default parameter:
+If y is not passed or undefined, then y = 10.
+function myFunction(x, y = 10) {
+  return x + y;
+}
+myFunction(5);
+
+Function Rest Parameter
+The rest parameter (...) allows a function to treat an indefinite number of arguments as an array:
+
+function sum(...args) {
+  let sum = 0;
+  for (let arg of args) sum += arg;
+  return sum;
+}
+
+let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
+
+
+The Arguments Object
+JavaScript functions have a built-in object called the arguments object.
+The argument object contains an array of the arguments used when the function was called (invoked).
+x = findMax(1, 123, 500, 115, 44, 88);
+
+function findMax() {
+  let max = -Infinity;
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] > max) {
+      max = arguments[i];
+    }
+  }
+  return max;
+}
+Note:If a function is called with too many arguments (more than declared),
+     these arguments can be reached using the arguments object.
+
+JavaScript Objects:
+  You should declare objects with the const keyword.
+  When an object is declared with const, you cannot later reassign it to point to a different variable.
+  It does not make the object unchangeable. You can still modify its properties and values.
+
+// Create an Object
+const person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+Create a new JavaScript object using new Object():
+
+// Create an Object
+const person = new Object({
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+});
+
+Object Properties
+You can access object properties in two ways:
+objectName.propertyName
+objectName["propertyName"]
+
+Adding New Properties
+person.nationality = "English";
+
+delete person.age;
+
+const person = {
+  firstName: "John",
+  lastName : "Doe",
+  id       : 5566,
+  fullName : function() {  //this is called object Method
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+to access object method:
+person.fullName();
+wihtout () gives fn definition.
+
+
 *********************************************************************************
 
 Open the login.contract.spec to learn about teh test method/fucntiona nd its varieties
