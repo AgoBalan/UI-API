@@ -532,6 +532,202 @@ person.fullName();
 wihtout () gives fn definition.
 
 
+Advanced Fucntions:
+Function Declarations 
+function myFunction(a, b) {return a * b;}
+
+Function Expressions:
+const x = function (a, b) {return a * b};
+
+The Function() Constructor:
+const myFunction = new Function("a", "b", "return a * b");
+
+Function Hoisting:
+myFunction(5);
+
+function myFunction(y) {
+  return y * y;
+}
+
+Functions are Objects:
+The typeof operator in JavaScript returns "function" for functions.
+The arguments.length property returns the number of arguments received when the function was invoked:
+function myFunction(a, b) {
+  return arguments.length;
+}
+
+Self invoking funtion:
+(
+  function () {
+  let text = "Hello! I called myself.";
+})();
+
+(() => {
+  let text = "Hello! I called myself.";
+})();
+
+CAll:
+const person = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+const person1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+
+// This will return "John Doe":
+person.fullName.call(person1);
+
+const person = {
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+const person1 = {
+  firstName: "Mary",
+  lastName: "Doe"
+}
+
+// This will return "Mary Doe":
+person.fullName.apply(person1);
+
+The Difference Between call() and apply()
+The call() method takes arguments separately.
+The apply() method takes arguments as an array.
+
+person.fullName.apply(person1, ["Oslo", "Norway"]);
+person.fullName.call(person1, "Oslo", "Norway");
+
+BIND:Function Borrowing
+const person = {
+  firstName:"John",
+  lastName: "Doe",
+  fullName: function () {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+const member = {
+  firstName:"Hege",
+  lastName: "Nilsen",
+}
+
+let fullName = person.fullName.bind(member);
+ANS: Hege Nilsen
+
+
+OBJECTS:
+Methods for Defining JavaScript Objects
+Using an Object Literal
+Using the new Keyword
+Using an Object Constructor
+Using Object.assign()
+Using Object.create()
+Using Object.fromEntries()
+
+literals:
+// Create an Object
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+
+// Create an Object
+const person = new Object({
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+});
+
+// Create Target Object
+const person1 = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+
+// Create Source Object
+const person2 = {firstName: "Anne",lastName: "Smith"};
+
+// Assign Source to Target
+Object.assign(person1, person2);
+
+In JavaScript, Objects are King.
+If you Understand Objects, you Understand JavaScript.
+In JavaScript, almost "everything" is an object.
+
+Objects are objects
+Maths are objects
+Functions are objects
+Dates are objects
+Arrays are objects
+Maps are objects
+Sets are objects
+
+
+To create more obejct use fn:
+function person (fn,ln,age) {
+  this.fn = fn;
+  this.ln =ln;
+  this.age = age;
+}
+ const obj1 = new person("a","b",1);
+
+ JavaScript Class Syntax
+Use the keyword class to create a class.
+
+Always add a method named constructor():
+A JavaScript class is not an object.
+It is a template for JavaScript objects.
+
+class Car {
+  constructor(brand) {
+    this.carname = brand;
+  }
+  present() {
+    return 'I have a ' + this.carname;
+  }
+}
+
+class Model extends Car {
+  constructor(brand, mod) {
+    super(brand);
+    this.model = mod;
+  }
+  show() {
+    return this.present() + ', it is a ' + this.model;
+  }
+}
+
+let myCar = new Model("Ford", "Mustang");
+document.getElementById("demo").innerHTML = myCar.show();
+
+
+
+Module Files:
+// Export an "add" function
+export function add(a, b) {
+  return a + b;
+}
+// Import the add function
+import { add } from './math.js';
+
+// Export name and age
+export const name = "Jesse";
+export const age = 40;
+// Import name and age
+import { name, age } from "./person.js";
+
+Namespace Export:
+import * as math from "./math_module.js";
+
 *********************************************************************************
 
 Open the login.contract.spec to learn about teh test method/fucntiona nd its varieties
