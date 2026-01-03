@@ -19,6 +19,8 @@ export const test = base.extend<Fixtures>({
   expect: async ({}, use) => use(expect)  // expect is a fixture
 });
 
+export { expect };
+
 
 
 /* Why fixtures are useful

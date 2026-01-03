@@ -107,3 +107,12 @@ View reports: npx playwright show-report
 
 Direct CLI → npx playwright test tests/ui --grep "@smoke"
 Via npm script → npm run test:smoke
+
+
+
+-------To enable vs code ------
+## Agent Initialization
+To enable Playwright Agents in VS Code, run:
+
+```sh
+npx playwright init-agents --loop=vscode

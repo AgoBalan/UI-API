@@ -19,10 +19,10 @@ test.describe('compelte flow', () => {
     let payload ={"productName":"","minPrice":null,"maxPrice":null,"productCategory":[],"productSubCategory":[],"productFor":[]}
     const res = await apiRequest.getAllProducts(payload);
     const parsed = SchemaCheck.LoginResponseSchema.safeParse(res);
-    expect(parsed.success, JSON.stringify(parsed.error?.format())).toBeTruthy();
+    test.expect(parsed.success, JSON.stringify(parsed.error?.format())).toBeTruthy();
   });
 
-   test.skip('@contract After login get all product details', async ({ apiRequest,expect }) => {
+   test.skip('@contract After login get all product details', async ({ apiRequest }) => {
     //Attaching meta data to test run
     //test.info() → gives you access to the current test’s metadata object while it’s running.
     //.annotations → is an array of annotation objects (extra labels or notes you can attach to the test).
@@ -34,13 +34,13 @@ test.describe('compelte flow', () => {
     // const parsed = SchemaCheck.LoginResponseSchema.safeParse(res);
     // expect(parsed.success, JSON.stringify(parsed.error?.format())).toBeTruthy();
   });
-   test('@contract After login get 1 product details', async ({ apiRequest,expect }) => {
+   test('@contract After login get 1 product details', async ({ apiRequest }) => {
       test.info().annotations.push({ type: 'tag', description: '@contract' });
     const creds = new UserBuilder().withUserName('emilys').withPassword('emilyspass').build();
     const res = await apiRequest.getOneProduct();
     console.log("All prod response"+ JSON.stringify(res));
     const parsed = SchemaCheck.ProductViewResponseSchema.safeParse(res); //{ success: true, data: ... }  //{ success: false, error: ... } 
-    expect(parsed.success, JSON.stringify(parsed.error?.issues)).toBeTruthy();
+    test.expect(parsed.success, JSON.stringify(parsed.error?.issues)).toBeTruthy();
     //.toBeTruthy()  Asserts that actual is truthy (not false, null, undefined, 0, or "").
   });
 });
