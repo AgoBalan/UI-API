@@ -13,22 +13,28 @@ export type LoginResponse = {
 export class ApiRequest {
  // private → only accessible inside the class.
  //readonly → cannot be reassigned after construction.
-  constructor(private readonly http = new HttpClient()) {}
-  login(body: LoginRequest) {
+  constructor(private readonly http = new HttpClient()) {/*nothing in constructor body*/}
+  
+  login(payLoad: LoginRequest) {
     /*return this.http.request<LoginResponse>('auth/login', {  // generic -> <LoginResponse>
       method: 'POST',
       body: JSON.stringify(body)
     },'admin'); */
-    return this.http.request<LoginResponse>('auth/login', {  // generic -> <LoginResponse>
+    return this.http.postRequest<LoginResponse>('auth/login', {  // generic(expected return format) -> <LoginResponse>
       method: 'POST',
-      body: JSON.stringify(body)
+      body: JSON.stringify(payLoad)
     },'user');
   }
 
-  getAllProducts(body: any) {
-    return this.http.request('/product/get-all-products', {  // no generic expected response format
+  getAllProducts(payLoad: any) {
+    return this.http.postRequest('/product/get-all-products', {  // no generic expected response format
       method: 'POST',
-      body: JSON.stringify(body)
+      body: JSON.stringify(payLoad)
+    },'user');
+  }
+    getOneProduct() {
+    return this.http.getRequest('/product/get-product-detail/68a961459320a140fe1ca57a', {
+      method: 'GET',
     },'user');
   }
 }

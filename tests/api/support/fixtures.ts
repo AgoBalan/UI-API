@@ -1,3 +1,4 @@
+//@playwright is scoped namespace and package is test
 import { test as base, expect } from '@playwright/test'; //Import the test function, but locally refer to it by the name base.
 import { ApiRequest } from './clients/ApiRequest';
 import { OrdersRepository } from './repository/OrdersRepository';
@@ -13,12 +14,11 @@ type Fixtures = {         //Declaring shape of the object
 export const test = base.extend<Fixtures>({
   //use is a fucntion given during extending fxture, 
   // It's duty to hand the value you’ve created to Playwright so it can inject it into the test.
-  apiRequest: async ({}, use) => use(new ApiRequest()),   // httpClient is a fixture,
+  apiRequest: async ({}, use) => use(new ApiRequest()),   // lazy laoding,if test case ask create object else wont create
   ordersRepo: async ({}, use) => use(new OrdersRepository()),  // ordersRepo is a fixture
   expect: async ({}, use) => use(expect)  // expect is a fixture
 });
 
-export {expect}
 
 
 /* Why fixtures are useful

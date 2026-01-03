@@ -3,6 +3,7 @@ import { env } from '../../../../src/config/env';
 type TokenType = 'user' | 'admin';
 
 export class TokenManager {
+ 
   private static tokens: Record<TokenType, string | null> = {
     user: null,
     admin: null,
@@ -37,7 +38,7 @@ export class TokenManager {
 
     if (!res.ok) throw new Error(`Failed to generate ${type} token: HTTP ${res.status}`);
     const data = await res.json();
-    console.log(`Generated ${type} Token:`, data.token);
+  //  console.log(`Generated ${type} Token:`, data.token);
     return data.token;
   }
 }

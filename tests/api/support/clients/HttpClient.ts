@@ -10,7 +10,32 @@ export class HttpClient {
             ) {} //default constrcutor
   //if HttpClient obejct  htpClient("adasda"),baseUrl will set to adasda
 
-  async request<T>(
+  async postRequest<T>(
+      path: string,
+      init: RequestInit = { headers: { 'Content-Type': 'application/json' }},
+      tokenType: TokenType = 'user' // Default to 'user' token
+  ): Promise<T> {
+    const url = `${this.baseUrl}${this.pathUrl}${path}`;
+    const authToken = await TokenManager.getToken(tokenType); // Fetch token based on type
+
+    const headers = {
+      ...(authToken ? { Authorization: `${authToken}` } : {}),
+      ...(init.headers ?? {}),
+    };
+
+    console.log("Request URL:", url);
+    console.log("Request Headers:", headers);
+
+    const res = await fetch(url, {
+      ...init,
+      headers,
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    return (await res.json()) as T;
+  }
+
+    async getRequest<T>(
     path: string,
     init: RequestInit = { headers: { 'Content-Type': 'application/json' }},
     tokenType: TokenType = 'user' // Default to 'user' token

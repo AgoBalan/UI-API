@@ -32,14 +32,6 @@ Open a terminal in the project folder.
 Run: npm install
 Set environment variables by copying .env.example to .env.development or .env.test and fill values.
 
-Run tests:
-UI smoke: npx playwright test tests/ui --grep "@smoke"
-API tests: npx playwright test tests/api
-All tests: npx playwright test
-View reports: npx playwright show-report
-
-Direct CLI → npx playwright test tests/ui --grep "@smoke"
-Via npm script → npm run test:smoke
 
 Note:npx runs binaries from your local node_modules/.bin folder without needing a global install. 
 Playwright provides its CLI (playwright) this way, so npx is the right tool.
@@ -99,6 +91,19 @@ Playwright provides its CLI (playwright) this way, so npx is the right tool.
 API TESTING
 1. Customize your Fixures , SO that each test has it all need thing we head and no need to wirte and duplciate sme code in each test case!!!, Read Fixure.TS for more information
 
-2.CReate your test
-3.
+2.CReate your test - login.contract.spec.ts
+ 2.1 import the customized fixture
+ 2.2 import schamvalidation
+ 2.3 import testdata geenrator
 
+ 2.4 call apirequest class methods to hit given API
+
+
+Run tests:
+UI smoke: npx playwright test tests/ui --grep "@smoke"
+API tests: npx playwright test tests/api
+All tests: npx playwright test
+View reports: npx playwright show-report
+
+Direct CLI → npx playwright test tests/ui --grep "@smoke"
+Via npm script → npm run test:smoke
