@@ -6,7 +6,7 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   workers: '50%',
-  reporter: [['html'], ['list']],
+  reporter: [['html'], ['list'], ['allure-playwright']],
   timeout: 30_000,
   use: {
     baseURL: env.baseUrl,
